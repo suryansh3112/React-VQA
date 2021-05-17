@@ -5,6 +5,10 @@
 /.pnp
 .pnp.js
 
+
+/backend/env
+/backend/api/cifar10/model1_cifar_10epoch.h5
+
 # testing
 /coverage
 
