@@ -8,6 +8,7 @@
 
 /backend/env
 /backend/api/cifar10/model1_cifar_10epoch.h5
+/backend/api/cifar100/model1_cifar_100epoch.h5
 
 # testing
 /coverage

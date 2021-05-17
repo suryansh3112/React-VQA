@@ -17,6 +17,10 @@ function NavbarReact() {
     <Link to='/cifar10'>
       <Nav.Link href="#link">Cifar10</Nav.Link>
     </Link>
+
+    <Link to='/cifar100'>
+      <Nav.Link href="#link">Cifar100</Nav.Link>
+    </Link>
           
     </Nav>
   </Navbar.Collapse>
