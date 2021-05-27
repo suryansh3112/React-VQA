@@ -224,12 +224,12 @@ function VQA() {
               </Form.Group>
             </Form>
 
-            <div>
-              <div>
+            <div style={{marginBottom:'1rem'}}>
+              <div style={{marginBottom:'1rem'}}>
                 {isListening ? <Button onClick={toggleBtn}>Stop</Button> : <Button onClick={toggleBtn}>Start</Button>}
                 {note && <Button onClick={saveSpeech}>Save</Button>}
               </div>
-              {note && <Card.Text>Speech : {note}</Card.Text>}
+              {note && <Card.Text style={{color:'rgb(102, 102, 102)'}}>Speech : {note}</Card.Text>}
             </div>
 
             <Card.Text>Want a different question?</Card.Text>

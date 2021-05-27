@@ -5,14 +5,19 @@ import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
 import Alert from 'react-bootstrap/Alert';
 import './cifar10.css'
+import spk from '../speaker.png'
+
+var msg = new SpeechSynthesisUtterance();
 
 function Cifar10() {
 
   const [img, setImage] = useState(null)
   const [prediction, setPrediction] = useState("")
   const [preview, setPreview] = useState(null)
+  const [predicting, setPredicting] = useState(false)
 
   const pred_cifar10 = async()=>{
+    setPredicting(true)
     let formData = new FormData();
         const config = {
             header: { 'content-type': 'multipart/form-data' }
@@ -24,9 +29,12 @@ function Cifar10() {
         try {
             const response = await axios.post('http://127.0.0.1:5000/cifar10', formData, config)
             setPrediction(response.data.prediction)
+            msg.text = response.data.prediction;
+            window.speechSynthesis.speak(msg);
         }catch(error){
           console.log(error.message);
         }
+        setPredicting(false)
   }
 
   const reset = ()=>{
@@ -53,14 +61,26 @@ function Cifar10() {
         }
         <input type='file' onChange={handleImgChange} className='file-input'/>
         
-        <Button style={{marginBottom:'1rem'}} variant="success" size="lg" onClick={pred_cifar10} >
-          Predict
-        </Button>
-        {/* <button onClick={reset}>Reset</button> */}
-        {prediction && 
+        {
+          predicting ? 
+          <Button style={{marginBottom:'1rem'}} variant="success" size="lg" disable >
+            Predicting...
+          </Button>
+          : 
+          <Button style={{marginBottom:'1rem'}} variant="success" size="lg" onClick={pred_cifar10} >
+            Predict
+          </Button>
+        }
+
+        
+        {prediction && <div style={{display:"flex"}}>
             <Alert variant="primary">
               Prediction: <b>{prediction}</b>
             </Alert>
+            <Button variant="light" style={{height:"3rem",marginLeft:"10px"}} onClick={()=>{msg.text=prediction; window.speechSynthesis.speak(msg)}}>
+              <img src={spk} width='20' height='20'/>
+            </Button>
+          </div>
         }
       
     </section>
